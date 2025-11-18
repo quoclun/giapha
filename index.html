@@ -1,13 +1,43 @@
-<!DOCTYPE html>
-<html lang="vi">
+<!-- frontend/index.html -->
+<!doctype html>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Gia phả dòng họ</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8" />
+<title>Gia phả dòng họ</title>
+<link href="https://unpkg.com/orgchart@2.1.9/dist/css/orgchart.css" rel="stylesheet">
+<style>
+  body { font-family: Arial; padding:20px; }
+  #chart { width:100%; overflow:auto; border:1px solid #eee; padding:10px; background:#fff; }
+  .node { text-align:center; padding:8px; border-radius:6px; }
+</style>
 </head>
 <body>
-  <h1>Gia phả dòng họ</h1>
-  <div id="tree"></div>
-  <script src="app.js"></script>
+  <h1>Gia phả dòng họ — Demo</h1>
+  <div id="chart"></div>
+
+<script src="https://unpkg.com/orgchart@2.1.9/dist/js/orgchart.js"></script>
+<script>
+const data = {
+  name: "Ông A",
+  title: "Sơ tổ",
+  children: [
+    { name: "B", title: "Con 1", children: [
+        { name: "D", title: "Cháu 1" },
+        { name: "E", title: "Cháu 2" }
+      ]
+    },
+    { name: "C", title: "Con 2", children: [
+        { name: "F", title: "Cháu 3" }
+      ]
+    }
+  ]
+};
+
+const chart = new OrgChart(document.getElementById('chart'), {
+  data: data,
+  nodeContent: 'title',
+  nodeTemplate: function(data){ return `<div class="node"><strong>${data.name}</strong><br/><small>${data.title||''}</small></div>`; }
+});
+</script>
 </body>
 </html>
